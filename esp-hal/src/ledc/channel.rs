@@ -65,10 +65,10 @@ pub enum Number {
     Channel4 = 4,
     /// Channel 5
     Channel5 = 5,
-    #[cfg(not(any(esp32c2, esp32c3, esp32c6, esp32h2)))]
+    #[cfg(not(any(esp32c2, esp32c3, esp32c5, esp32c6, esp32h2)))]
     /// Channel 6
     Channel6 = 6,
-    #[cfg(not(any(esp32c2, esp32c3, esp32c6, esp32h2)))]
+    #[cfg(not(any(esp32c2, esp32c3, esp32c5, esp32c6, esp32h2)))]
     /// Channel 7
     Channel7 = 7,
 }
@@ -396,6 +396,13 @@ impl<S: crate::ledc::timer::TimerSpeed> Channel<'_, S> {
                 });
         }
     }
+    #[cfg(esp32c5)]
+    fn start_duty_without_fading(&self) {
+        self.ledc
+            .ch(self.number as usize)
+            .conf1()
+            .write(|w| w.duty_start().set_bit());
+    }
     #[cfg(any(esp32c6, esp32h2))]
     fn start_duty_without_fading(&self) {
         let cnum = self.number as usize;
@@ -412,7 +419,7 @@ impl<S: crate::ledc::timer::TimerSpeed> Channel<'_, S> {
             }
         });
     }
-    #[cfg(not(any(esp32, esp32c6, esp32h2)))]
+    #[cfg(not(any(esp32, esp32c5, esp32c6, esp32h2)))]
     fn start_duty_without_fading(&self) {
         self.ledc.ch(self.number as usize).conf1().write(|w| {
             w.duty_start().set_bit();
@@ -468,6 +475,21 @@ impl<S: crate::ledc::timer::TimerSpeed> Channel<'_, S> {
         }
     }
 
+    #[cfg(esp32c5)]
+    fn start_duty_fade_inner(
+        &self,
+        duty_inc: bool,
+        duty_steps: u16,
+        cycles_per_step: u16,
+        duty_per_cycle: u16,
+    ) {
+        let _ = (duty_inc, duty_steps, cycles_per_step, duty_per_cycle);
+        self.ledc
+            .ch(self.number as usize)
+            .conf1()
+            .write(|w| w.duty_start().set_bit());
+    }
+
     #[cfg(any(esp32c6, esp32h2))]
     fn start_duty_fade_inner(
         &self,
@@ -499,7 +521,7 @@ impl<S: crate::ledc::timer::TimerSpeed> Channel<'_, S> {
             .write(|w| unsafe { w.ch_gamma_entry_num().bits(0x1) });
     }
 
-    #[cfg(not(any(esp32, esp32c6, esp32h2)))]
+    #[cfg(not(any(esp32, esp32c5, esp32c6, esp32h2)))]
     fn start_duty_fade_inner(
         &self,
         duty_inc: bool,
@@ -583,9 +605,9 @@ where
                     Number::Channel3 => OutputSignal::LEDC_LS_SIG3,
                     Number::Channel4 => OutputSignal::LEDC_LS_SIG4,
                     Number::Channel5 => OutputSignal::LEDC_LS_SIG5,
-                    #[cfg(not(any(esp32c2, esp32c3, esp32c6, esp32h2)))]
+                    #[cfg(not(any(esp32c2, esp32c3, esp32c5, esp32c6, esp32h2)))]
                     Number::Channel6 => OutputSignal::LEDC_LS_SIG6,
-                    #[cfg(not(any(esp32c2, esp32c3, esp32c6, esp32h2)))]
+                    #[cfg(not(any(esp32c2, esp32c3, esp32c5, esp32c6, esp32h2)))]
                     Number::Channel7 => OutputSignal::LEDC_LS_SIG7,
                 }
             };
@@ -597,9 +619,9 @@ where
                 Number::Channel3 => OutputSignal::LEDC_LS_SIG3,
                 Number::Channel4 => OutputSignal::LEDC_LS_SIG4,
                 Number::Channel5 => OutputSignal::LEDC_LS_SIG5,
-                #[cfg(not(any(esp32c2, esp32c3, esp32c6, esp32h2)))]
+                #[cfg(not(any(esp32c2, esp32c3, esp32c5, esp32c6, esp32h2)))]
                 Number::Channel6 => OutputSignal::LEDC_LS_SIG6,
-                #[cfg(not(any(esp32c2, esp32c3, esp32c6, esp32h2)))]
+                #[cfg(not(any(esp32c2, esp32c3, esp32c5, esp32c6, esp32h2)))]
                 Number::Channel7 => OutputSignal::LEDC_LS_SIG7,
             };
 
