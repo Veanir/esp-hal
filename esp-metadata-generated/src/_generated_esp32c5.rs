@@ -138,6 +138,45 @@ macro_rules! property {
     ("interrupts.disabled_interrupt") => {
         0
     };
+    ("rmt.ram_start") => {
+        1610638336
+    };
+    ("rmt.ram_start", str) => {
+        stringify!(1610638336)
+    };
+    ("rmt.channel_ram_size") => {
+        48
+    };
+    ("rmt.channel_ram_size", str) => {
+        stringify!(48)
+    };
+    ("rmt.has_tx_immediate_stop") => {
+        true
+    };
+    ("rmt.has_tx_loop_count") => {
+        true
+    };
+    ("rmt.has_tx_loop_auto_stop") => {
+        true
+    };
+    ("rmt.has_tx_carrier_data_only") => {
+        true
+    };
+    ("rmt.has_tx_sync") => {
+        true
+    };
+    ("rmt.has_rx_wrap") => {
+        true
+    };
+    ("rmt.has_rx_demodulation") => {
+        true
+    };
+    ("rmt.has_dma") => {
+        false
+    };
+    ("rmt.has_per_channel_clock") => {
+        false
+    };
     ("spi_master.supports_dma") => {
         false
     };
@@ -1778,6 +1817,8 @@ macro_rules! implement_peripheral_clocks {
             Dma,
             /// PCNT peripheral clock signal
             Pcnt,
+            /// RMT peripheral clock signal
+            Rmt,
             /// SPI2 peripheral clock signal
             Spi2,
             /// SYSTIMER peripheral clock signal
@@ -1798,6 +1839,7 @@ macro_rules! implement_peripheral_clocks {
             const ALL: &[Self] = &[
                 Self::Dma,
                 Self::Pcnt,
+                Self::Rmt,
                 Self::Spi2,
                 Self::Systimer,
                 Self::Timg0,
@@ -1817,6 +1859,11 @@ macro_rules! implement_peripheral_clocks {
                     crate::peripherals::SYSTEM::regs()
                         .pcnt_conf()
                         .modify(|_, w| w.pcnt_clk_en().bit(enable));
+                }
+                Peripheral::Rmt => {
+                    crate::peripherals::SYSTEM::regs()
+                        .rmt_conf()
+                        .modify(|_, w| w.rmt_clk_en().bit(enable));
                 }
                 Peripheral::Spi2 => {
                     crate::peripherals::SYSTEM::regs()
@@ -1869,6 +1916,11 @@ macro_rules! implement_peripheral_clocks {
                     crate::peripherals::SYSTEM::regs()
                         .pcnt_conf()
                         .modify(|_, w| w.pcnt_rst_en().bit(reset));
+                }
+                Peripheral::Rmt => {
+                    crate::peripherals::SYSTEM::regs()
+                        .rmt_conf()
+                        .modify(|_, w| w.rmt_rst_en().bit(reset));
                 }
                 Peripheral::Spi2 => {
                     crate::peripherals::SYSTEM::regs()
@@ -2080,6 +2132,54 @@ macro_rules! sw_interrupt_delay {
             ::core::arch::asm!("nop");
             ::core::arch::asm!("nop");
         }
+    };
+}
+/// This macro can be used to generate code for each channel of the RMT peripheral.
+///
+/// For an explanation on the general syntax, as well as usage of individual/repeated
+/// matchers, refer to [the crate-level documentation][crate#for_each-macros].
+///
+/// This macro has three options for its "Individual matcher" case:
+///
+/// - `all`: `($num:literal)`
+/// - `tx`: `($num:literal, $idx:literal)`
+/// - `rx`: `($num:literal, $idx:literal)`
+///
+/// Macro fragments:
+///
+/// - `$num`: number of the channel, e.g. `0`
+/// - `$idx`: index of the channel among channels of the same capability, e.g. `0`
+///
+/// Example data:
+///
+/// - `all`: `(0)`
+/// - `tx`: `(1, 1)`
+/// - `rx`: `(2, 0)`
+#[macro_export]
+#[cfg_attr(docsrs, doc(cfg(feature = "_device-selected")))]
+macro_rules! for_each_rmt_channel {
+    ($($pattern:tt => $code:tt;)*) => {
+        macro_rules! _for_each_inner_rmt_channel { $(($pattern) => $code;)* ($other : tt)
+        => {} } _for_each_inner_rmt_channel!((0)); _for_each_inner_rmt_channel!((1));
+        _for_each_inner_rmt_channel!((2)); _for_each_inner_rmt_channel!((3));
+        _for_each_inner_rmt_channel!((0, 0)); _for_each_inner_rmt_channel!((1, 1));
+        _for_each_inner_rmt_channel!((2, 0)); _for_each_inner_rmt_channel!((3, 1));
+        _for_each_inner_rmt_channel!((all(0), (1), (2), (3)));
+        _for_each_inner_rmt_channel!((tx(0, 0), (1, 1)));
+        _for_each_inner_rmt_channel!((rx(2, 0), (3, 1)));
+    };
+}
+#[macro_export]
+#[cfg_attr(docsrs, doc(cfg(feature = "_device-selected")))]
+macro_rules! for_each_rmt_clock_source {
+    ($($pattern:tt => $code:tt;)*) => {
+        macro_rules! _for_each_inner_rmt_clock_source { $(($pattern) => $code;)* ($other
+        : tt) => {} } _for_each_inner_rmt_clock_source!((Xtal, 0));
+        _for_each_inner_rmt_clock_source!((RcFast, 1));
+        _for_each_inner_rmt_clock_source!((Pll80MHz, 2));
+        _for_each_inner_rmt_clock_source!((Pll80MHz));
+        _for_each_inner_rmt_clock_source!((all(Xtal, 0), (RcFast, 1), (Pll80MHz, 2)));
+        _for_each_inner_rmt_clock_source!((default(Pll80MHz)));
     };
 }
 /// This macro can be used to generate code for each peripheral instance of the UART driver.

@@ -1728,6 +1728,7 @@ impl Chip {
                     "dedicated_gpio_driver_supported",
                     "interrupts_driver_supported",
                     "pcnt_driver_supported",
+                    "rmt_driver_supported",
                     "spi_master_driver_supported",
                     "spi_slave_driver_supported",
                     "systimer_driver_supported",
@@ -1790,6 +1791,18 @@ impl Chip {
                     "gpio_output_signal_max=\"256\"",
                     "interrupts_status_registers=\"3\"",
                     "interrupt_controller=\"clic\"",
+                    "rmt_ram_start=\"1610638336\"",
+                    "rmt_channel_ram_size=\"48\"",
+                    "rmt_has_tx_immediate_stop",
+                    "rmt_has_tx_loop_count",
+                    "rmt_has_tx_loop_auto_stop",
+                    "rmt_has_tx_carrier_data_only",
+                    "rmt_has_tx_sync",
+                    "rmt_has_rx_wrap",
+                    "rmt_has_rx_demodulation",
+                    "rmt_supports_xtal_clock",
+                    "rmt_supports_rcfast_clock",
+                    "rmt_supports_pll80mhz_clock",
                     "spi_master_has_app_interrupts",
                     "spi_master_has_dma_segmented_transfer",
                     "spi_master_has_clk_pre_div",
@@ -1883,6 +1896,7 @@ impl Chip {
                     "cargo:rustc-cfg=dedicated_gpio_driver_supported",
                     "cargo:rustc-cfg=interrupts_driver_supported",
                     "cargo:rustc-cfg=pcnt_driver_supported",
+                    "cargo:rustc-cfg=rmt_driver_supported",
                     "cargo:rustc-cfg=spi_master_driver_supported",
                     "cargo:rustc-cfg=spi_slave_driver_supported",
                     "cargo:rustc-cfg=systimer_driver_supported",
@@ -1945,6 +1959,18 @@ impl Chip {
                     "cargo:rustc-cfg=gpio_output_signal_max=\"256\"",
                     "cargo:rustc-cfg=interrupts_status_registers=\"3\"",
                     "cargo:rustc-cfg=interrupt_controller=\"clic\"",
+                    "cargo:rustc-cfg=rmt_ram_start=\"1610638336\"",
+                    "cargo:rustc-cfg=rmt_channel_ram_size=\"48\"",
+                    "cargo:rustc-cfg=rmt_has_tx_immediate_stop",
+                    "cargo:rustc-cfg=rmt_has_tx_loop_count",
+                    "cargo:rustc-cfg=rmt_has_tx_loop_auto_stop",
+                    "cargo:rustc-cfg=rmt_has_tx_carrier_data_only",
+                    "cargo:rustc-cfg=rmt_has_tx_sync",
+                    "cargo:rustc-cfg=rmt_has_rx_wrap",
+                    "cargo:rustc-cfg=rmt_has_rx_demodulation",
+                    "cargo:rustc-cfg=rmt_supports_xtal_clock",
+                    "cargo:rustc-cfg=rmt_supports_rcfast_clock",
+                    "cargo:rustc-cfg=rmt_supports_pll80mhz_clock",
                     "cargo:rustc-cfg=spi_master_has_app_interrupts",
                     "cargo:rustc-cfg=spi_master_has_dma_segmented_transfer",
                     "cargo:rustc-cfg=spi_master_has_clk_pre_div",
@@ -4988,6 +5014,8 @@ pub fn emit_check_cfg_directives() {
     println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_lp_slow_clk)");
     println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_timg_calibration_clock)");
     println!("cargo:rustc-check-cfg=cfg(dma_separate_in_out_interrupts)");
+    println!("cargo:rustc-check-cfg=cfg(rmt_has_tx_loop_auto_stop)");
+    println!("cargo:rustc-check-cfg=cfg(rmt_supports_pll80mhz_clock)");
     println!("cargo:rustc-check-cfg=cfg(spi_master_has_clk_pre_div)");
     println!("cargo:rustc-check-cfg=cfg(uart_peripheral_controls_mem_clk)");
     println!("cargo:rustc-check-cfg=cfg(esp32c6)");
@@ -5017,8 +5045,6 @@ pub fn emit_check_cfg_directives() {
     println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_ledc_sclk)");
     println!("cargo:rustc-check-cfg=cfg(i2c_master_can_estimate_nack_reason)");
     println!("cargo:rustc-check-cfg=cfg(i2c_master_has_reliable_fsm_reset)");
-    println!("cargo:rustc-check-cfg=cfg(rmt_has_tx_loop_auto_stop)");
-    println!("cargo:rustc-check-cfg=cfg(rmt_supports_pll80mhz_clock)");
     println!("cargo:rustc-check-cfg=cfg(timergroup_rc_fast_calibration_divider)");
     println!("cargo:rustc-check-cfg=cfg(wifi_has_wifi6)");
     println!("cargo:rustc-check-cfg=cfg(esp32h2)");
