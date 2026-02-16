@@ -265,7 +265,8 @@ pub fn load_lp_code(input: TokenStream, fs: impl Filesystem) -> TokenStream {
         return Error::new(
             Span::call_site(),
             format!(
-                "First section address is below expected base address (expected >= 0x{:x}, got 0x{:x})",
+                "First section address is below expected base address (expected >= 0x{:x}, got \
+                 0x{:x})",
                 last_address,
                 sections[0].address()
             ),

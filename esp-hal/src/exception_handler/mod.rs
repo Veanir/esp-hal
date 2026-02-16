@@ -66,13 +66,15 @@ unsafe extern "C" fn ExceptionHandler(context: &TrapFrame) -> ! {
 
         if mtval == guard_addr {
             panic!(
-                "Detected a write to the main stack's guard value at 0x{:x}, possibly called by 0x{:x}",
+                "Detected a write to the main stack's guard value at 0x{:x}, possibly called by \
+                 0x{:x}",
                 mepc, context.ra
             )
         } else {
             if unsafe { crate::debugger::watchpoint_hit(1) } {
                 panic!(
-                    "Detected a write to the trap/rwtext segment at 0x{:x}, possibly called by 0x{:x}",
+                    "Detected a write to the trap/rwtext segment at 0x{:x}, possibly called by \
+                     0x{:x}",
                     mepc, context.ra
                 );
             } else if unsafe { crate::debugger::watchpoint_hit(0) } {

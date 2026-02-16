@@ -1401,7 +1401,6 @@ impl<'d> Uart<'d, Blocking> {
         multi_core,
         doc = "Registers an interrupt handler for the peripheral on the current core."
     )]
-    #[doc = ""]
     /// Note that this will replace any previously registered interrupt
     /// handlers.
     ///

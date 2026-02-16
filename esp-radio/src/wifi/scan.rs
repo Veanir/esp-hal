@@ -81,7 +81,8 @@ impl ScanTypeConfig {
     pub(crate) fn validate(&self) {
         if matches!(self, Self::Passive(dur) if *dur > Duration::from_millis(1500)) {
             warn!(
-                "Passive scan duration longer than 1500ms may cause a station to disconnect from the access point"
+                "Passive scan duration longer than 1500ms may cause a station to disconnect from \
+                 the access point"
             );
         }
     }

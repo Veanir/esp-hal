@@ -66,7 +66,9 @@
 //! Please note that the configuration keys are usually named slightly different and not all configuration keys apply.
 #![cfg_attr(
     feature = "wifi",
-    doc = "By default the power-saving mode is [`PowerSaveMode::None`](crate::wifi::PowerSaveMode::None) and `ESP_PHY_CONFIG_PHY_ENABLE_USB` is enabled by default."
+    doc = "By default the power-saving mode is \
+           [`PowerSaveMode::None`](crate::wifi::PowerSaveMode::None) and \
+           `ESP_PHY_CONFIG_PHY_ENABLE_USB` is enabled by default."
 )]
 //! In addition pay attention to these configuration keys:
 //! - `ESP_RADIO_CONFIG_RX_QUEUE_SIZE`
@@ -104,7 +106,6 @@
 //! features. These can be set via environment variables, or via cargo's `[env]`
 //! section inside `.cargo/config.toml`. Below is a table of tunable parameters
 //! for this crate:
-#![doc = ""]
 #![doc = include_str!(concat!(env!("OUT_DIR"), "/esp_radio_config_table.md"))]
 #![doc(html_logo_url = "https://avatars.githubusercontent.com/u/46717278")]
 #![no_std]

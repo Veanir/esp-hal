@@ -14,10 +14,9 @@
 #[cfg(esp32)]
 use super::HighSpeed;
 use super::{LowSpeed, Speed};
-use crate::clock::Clocks;
 #[cfg(soc_has_clock_node_ledc_sclk)]
 use crate::soc::clocks::ClockTree;
-use crate::{pac, time::Rate};
+use crate::{clock::Clocks, pac, time::Rate};
 
 const LEDC_TIMER_DIV_NUM_MAX: u64 = 0x3FFFF;
 

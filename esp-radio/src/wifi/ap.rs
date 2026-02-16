@@ -121,18 +121,9 @@ impl defmt::Format for AccessPointConfig {
     fn format(&self, fmt: defmt::Formatter<'_>) {
         defmt::write!(
             fmt,
-            "AccessPointConfig {{\
-            ssid: {}, \
-            ssid_hidden: {}, \
-            channel: {}, \
-            secondary_channel: {}, \
-            protocols: {}, \
-            auth_method: {}, \
-            password: **REDACTED**, \
-            max_connections: {}, \
-            dtim_period: {}, \
-            beacon_timeout: {} \
-            }}",
+            "AccessPointConfig {{ssid: {}, ssid_hidden: {}, channel: {}, secondary_channel: {}, \
+             protocols: {}, auth_method: {}, password: **REDACTED**, max_connections: {}, \
+             dtim_period: {}, beacon_timeout: {} }}",
             self.ssid.as_str(),
             self.ssid_hidden,
             self.channel,

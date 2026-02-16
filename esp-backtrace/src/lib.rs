@@ -5,11 +5,13 @@
 #![cfg_attr(target_arch = "riscv32", doc = "\n")]
 #![cfg_attr(
     target_arch = "riscv32",
-    doc = "\nPlease note that you **need** to force frame pointers (i.e. `\"-C\", \"force-frame-pointers\",` in your `.cargo/config.toml`).\n"
+    doc = "\nPlease note that you **need** to force frame pointers (i.e. `\"-C\", \
+           \"force-frame-pointers\",` in your `.cargo/config.toml`).\n"
 )]
 #![cfg_attr(
     target_arch = "riscv32",
-    doc = "Otherwise the panic handler will emit a stack dump which needs tooling to decode it.\n\n"
+    doc = "Otherwise the panic handler will emit a stack dump which needs tooling to decode \
+           it.\n\n"
 )]
 #![cfg_attr(target_arch = "riscv32", doc = "\n")]
 //! You can get an array of backtrace addresses (limited to 10 entries by default) via
@@ -24,7 +26,6 @@
 //! features. These can be set via environment variables, or via cargo's `[env]`
 //! section inside `.cargo/config.toml`. Below is a table of tunable parameters
 //! for this crate:
-#![doc = ""]
 #![doc = include_str!(concat!(env!("OUT_DIR"), "/esp_backtrace_config_table.md"))]
 #![doc(html_logo_url = "https://avatars.githubusercontent.com/u/46717278")]
 #![cfg_attr(target_arch = "xtensa", feature(asm_experimental_arch))]

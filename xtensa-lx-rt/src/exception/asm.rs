@@ -78,13 +78,16 @@ global_asm!(
     .set XT_STK_F15,           212
     .set XT_STK_TMP,           216
 
-    .set XT_STK_FRMSZ,         256      // needs to be multiple of 16 and enough additional free space
-                                        // for the registers spilled to the stack (max 8 registers / 0x20 bytes)
+    .set XT_STK_FRMSZ,         256      // needs to be multiple of 16 and enough additional free \
+     space
+                                        // for the registers spilled to the stack (max 8 registers \
+     / 0x20 bytes)
                                         // multiple of 256 allows use of addmi instruction
 
 
 
-    .set PS_INTLEVEL_EXCM, 3	        // interrupt handlers above this level shouldn't be written in high level languages
+    .set PS_INTLEVEL_EXCM, 3	        // interrupt handlers above this level shouldn't be written \
+     in high level languages
     .set PS_INTLEVEL_MASK, 0x0000000f
     .set PS_EXCM,          0x00000010
     .set PS_UM,            0x00000020
@@ -252,7 +255,8 @@ save_context:
     ",
     #[cfg(all(XCHAL_HAVE_CP, not(feature = "float-save-restore")))]
     "
-    /* Disable coprocessor, any use of floats in ISRs will cause an exception unless float-save-restore feature is enabled */
+    /* Disable coprocessor, any use of floats in ISRs will cause an exception unless \
+     float-save-restore feature is enabled */
     rsr     a3, CPENABLE
     s32i    a3, sp, +XT_STK_F64R_LO_CPENABLE
     movi    a3,  0
@@ -359,7 +363,8 @@ save_context:
     rsr     a2, PS                     // to be restored after SPILL_REGISTERS
     movi    a0, PS_INTLEVEL_MASK
     and     a3, a2, a0                 // get the current INTLEVEL
-    bgeui   a3, +PS_INTLEVEL_EXCM, 1f  // calculate max(INTLEVEL, XCHAL_EXCM_LEVEL) - 3 = XCHAL_EXCM_LEVEL
+    bgeui   a3, +PS_INTLEVEL_EXCM, 1f  // calculate max(INTLEVEL, XCHAL_EXCM_LEVEL) - 3 = \
+     XCHAL_EXCM_LEVEL
     movi    a3, PS_INTLEVEL_EXCM
     1:
     movi    a0, PS_WOE       // clear EXCM, enable window overflow, set new INTLEVEL

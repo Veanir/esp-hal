@@ -2670,9 +2670,10 @@ impl WifiController<'_> {
         &mut self,
         config: &ScanConfig,
     ) -> Result<Vec<AccessPointInfo>, WifiError> {
-        let mut subscriber = EVENT_CHANNEL
-            .subscriber()
-            .expect("Unable to subscribe to events - consider increasing the internal event channel subscriber count");
+        let mut subscriber = EVENT_CHANNEL.subscriber().expect(
+            "Unable to subscribe to events - consider increasing the internal event channel \
+             subscriber count",
+        );
 
         esp_wifi_result!(wifi_start_scan(false, *config))?;
 
@@ -2721,9 +2722,10 @@ impl WifiController<'_> {
             expected_events += 1;
         }
 
-        let mut subscriber = EVENT_CHANNEL
-            .subscriber()
-            .expect("Unable to subscribe to events - consider increasing the internal event channel subscriber count");
+        let mut subscriber = EVENT_CHANNEL.subscriber().expect(
+            "Unable to subscribe to events - consider increasing the internal event channel \
+             subscriber count",
+        );
 
         set_access_point_state(WifiAccessPointState::Starting);
         set_station_state(WifiStationState::Starting);
@@ -2802,9 +2804,10 @@ impl WifiController<'_> {
             return Err(WifiError::NotStarted);
         }
 
-        let mut subscriber = EVENT_CHANNEL
-            .subscriber()
-            .expect("Unable to subscribe to events - consider increasing the internal event channel subscriber count");
+        let mut subscriber = EVENT_CHANNEL.subscriber().expect(
+            "Unable to subscribe to events - consider increasing the internal event channel \
+             subscriber count",
+        );
 
         let mut expected_events = 0;
         let mode = self.mode()?;
@@ -2868,9 +2871,10 @@ impl WifiController<'_> {
     /// }
     /// # {after_snippet}
     pub async fn connect_async(&mut self) -> Result<ConnectedStationInfo, WifiError> {
-        let mut subscriber = EVENT_CHANNEL
-            .subscriber()
-            .expect("Unable to subscribe to events - consider increasing the internal event channel subscriber count");
+        let mut subscriber = EVENT_CHANNEL.subscriber().expect(
+            "Unable to subscribe to events - consider increasing the internal event channel \
+             subscriber count",
+        );
 
         self.connect_impl()?;
 
@@ -2947,9 +2951,10 @@ impl WifiController<'_> {
             return Err(WifiError::NotConnected);
         }
 
-        let mut subscriber = EVENT_CHANNEL
-            .subscriber()
-            .expect("Unable to subscribe to events - consider increasing the internal event channel subscriber count");
+        let mut subscriber = EVENT_CHANNEL.subscriber().expect(
+            "Unable to subscribe to events - consider increasing the internal event channel \
+             subscriber count",
+        );
 
         self.disconnect_impl()?;
 
@@ -2981,9 +2986,10 @@ impl WifiController<'_> {
             return Err(WifiError::NotConnected);
         }
 
-        let mut subscriber = EVENT_CHANNEL
-            .subscriber()
-            .expect("Unable to subscribe to events - consider increasing the internal event channel subscriber count");
+        let mut subscriber = EVENT_CHANNEL.subscriber().expect(
+            "Unable to subscribe to events - consider increasing the internal event channel \
+             subscriber count",
+        );
 
         loop {
             let event = subscriber.next_message_pure().await;
@@ -3009,9 +3015,10 @@ impl WifiController<'_> {
     pub async fn wait_for_access_point_connected_event_async(
         &self,
     ) -> Result<AccessPointStationEventInfo, WifiError> {
-        let mut subscriber = EVENT_CHANNEL
-            .subscriber()
-            .expect("Unable to subscribe to events - consider increasing the internal event channel subscriber count");
+        let mut subscriber = EVENT_CHANNEL.subscriber().expect(
+            "Unable to subscribe to events - consider increasing the internal event channel \
+             subscriber count",
+        );
 
         loop {
             let event = subscriber.next_message_pure().await;

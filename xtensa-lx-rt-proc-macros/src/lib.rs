@@ -167,7 +167,8 @@ pub fn exception(args: TokenStream, input: TokenStream) -> TokenStream {
     if !valid_signature {
         return parse::Error::new(
             f.span(),
-            "`#[exception]` handlers must have signature `[unsafe] fn([ExceptionCause[, Context]) [-> !]`",
+            "`#[exception]` handlers must have signature `[unsafe] fn([ExceptionCause[, Context]) \
+             [-> !]`",
         )
         .to_compile_error()
         .into();
@@ -309,7 +310,8 @@ pub fn interrupt(args: TokenStream, input: TokenStream) -> TokenStream {
         } else {
             return parse::Error::new(
                 f.span(),
-                "`#[interrupt]` handlers must have signature `[unsafe] fn([u32[, Context]]) [-> !]`",
+                "`#[interrupt]` handlers must have signature `[unsafe] fn([u32[, Context]]) [-> \
+                 !]`",
             )
             .to_compile_error()
             .into();

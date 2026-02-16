@@ -653,7 +653,6 @@ impl<'d> Io<'d> {
         multi_core,
         doc = "Registers an interrupt handler for all GPIO pins on the current core."
     )]
-    #[doc = ""]
     /// Note that when using interrupt handlers registered by this function, or
     /// by defining a `#[no_mangle] unsafe extern "C" fn GPIO()` function, we do
     /// **not** clear the interrupt status register or the interrupt enable
@@ -743,7 +742,8 @@ pub enum DriveMode {
     /// resistors.
     #[cfg_attr(
         feature = "unstable",
-        doc = "\n\nEnable the input related functionality by using [Output::into_flex] and enabling input via [Flex::set_input_enable]"
+        doc = "\n\nEnable the input related functionality by using [Output::into_flex] and \
+               enabling input via [Flex::set_input_enable]"
     )]
     OpenDrain,
 }

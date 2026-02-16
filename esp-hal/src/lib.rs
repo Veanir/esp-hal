@@ -149,9 +149,7 @@
 //! section inside `.cargo/config.toml`. Note that unstable options can only be
 //! enabled when the `unstable` feature is enabled for the crate. Below is a
 //! table of tunable parameters for this crate:
-#![doc = ""]
 #![doc = include_str!(concat!(env!("OUT_DIR"), "/esp_hal_config_table.md"))]
-#![doc = ""]
 //! ## Don't use `core::mem::forget`
 //!
 //! You should never use `core::mem::forget` on any type defined in [esp crates].

@@ -517,7 +517,7 @@ fn capture_from_env(
     if !unstable.is_empty() {
         panic!(
             "The following configuration options are unstable: {unstable:?}. You can enable it by \
-            activating the 'unstable' feature in {crate_name}."
+             activating the 'unstable' feature in {crate_name}."
         );
     }
 
@@ -993,42 +993,47 @@ options:
 
         assert_eq!(
             vec![
-                    ConfigOption {
-                        name: "mmu_page_size".to_string(),
-                        description: "ESP32-C2, ESP32-C6 and ESP32-H2 support configurable page sizes. This is currently only used to populate the app descriptor.".to_string(),
-                        default_value: Value::String("64k".to_string()),
-                        constraint: Some(
-                            Validator::Enumeration(
-                                vec![
-                                    "8k".to_string(),
-                                    "16k".to_string(),
-                                    "32k".to_string(),
-                                    "64k".to_string(),
-                                ],
-                            ),
-                        ),
-                        stability: Stability::Stable("xxxx".to_string()),
-                        active: true,
-                        display_hint: DisplayHint::None,
-                    },
-                    ConfigOption {
-                        name: "esp_idf_version".to_string(),
-                        description: "ESP-IDF version used in the application descriptor. Currently it's not checked by the bootloader.".to_string(),
-                        default_value: Value::String("esp32c6".to_string()),
-                        constraint: None,
-                        stability: Stability::Unstable,
-                        active: true,
-                        display_hint: DisplayHint::None,
-                    },
-                    ConfigOption {
-                        name: "partition-table-offset".to_string(),
-                        description: "The address of partition table (by default 0x8000). Allows you to move the partition table, it gives more space for the bootloader. Note that the bootloader and app will both need to be compiled with the same PARTITION_TABLE_OFFSET value.".to_string(),
-                        default_value: Value::Integer(32768),
-                        constraint: None,
-                        stability: Stability::Unstable,
-                        active: true,
-                        display_hint: DisplayHint::None,
-                    },
+                ConfigOption {
+                    name: "mmu_page_size".to_string(),
+                    description: "ESP32-C2, ESP32-C6 and ESP32-H2 support configurable page \
+                                  sizes. This is currently only used to populate the app \
+                                  descriptor."
+                        .to_string(),
+                    default_value: Value::String("64k".to_string()),
+                    constraint: Some(Validator::Enumeration(vec![
+                        "8k".to_string(),
+                        "16k".to_string(),
+                        "32k".to_string(),
+                        "64k".to_string(),
+                    ],),),
+                    stability: Stability::Stable("xxxx".to_string()),
+                    active: true,
+                    display_hint: DisplayHint::None,
+                },
+                ConfigOption {
+                    name: "esp_idf_version".to_string(),
+                    description: "ESP-IDF version used in the application descriptor. Currently \
+                                  it's not checked by the bootloader."
+                        .to_string(),
+                    default_value: Value::String("esp32c6".to_string()),
+                    constraint: None,
+                    stability: Stability::Unstable,
+                    active: true,
+                    display_hint: DisplayHint::None,
+                },
+                ConfigOption {
+                    name: "partition-table-offset".to_string(),
+                    description: "The address of partition table (by default 0x8000). Allows you \
+                                  to move the partition table, it gives more space for the \
+                                  bootloader. Note that the bootloader and app will both need to \
+                                  be compiled with the same PARTITION_TABLE_OFFSET value."
+                        .to_string(),
+                    default_value: Value::Integer(32768),
+                    constraint: None,
+                    stability: Stability::Unstable,
+                    active: true,
+                    display_hint: DisplayHint::None,
+                },
             ],
             options
         );
@@ -1062,17 +1067,17 @@ options:
         assert_eq!("esp-bootloader-esp-idf", cfg.krate);
 
         assert_eq!(
-            vec![
-                    ConfigOption {
-                        name: "esp_idf_version".to_string(),
-                        description: "ESP-IDF version used in the application descriptor. Currently it's not checked by the bootloader.".to_string(),
-                        default_value: Value::String("default".to_string()),
-                        constraint: None,
-                        stability: Stability::Unstable,
-                        active: true,
-                        display_hint: DisplayHint::None,
-                    },
-            ],
+            vec![ConfigOption {
+                name: "esp_idf_version".to_string(),
+                description: "ESP-IDF version used in the application descriptor. Currently it's \
+                              not checked by the bootloader."
+                    .to_string(),
+                default_value: Value::String("default".to_string()),
+                constraint: None,
+                stability: Stability::Unstable,
+                active: true,
+                display_hint: DisplayHint::None,
+            },],
             options
         );
     }

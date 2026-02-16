@@ -50,12 +50,17 @@ fn main() -> Result<(), Box<dyn Error>> {
     let chip = esp_metadata_generated::Chip::from_cargo_feature()?;
 
     if !suppress_panics && chip.target() != std::env::var("TARGET").unwrap_or_default().as_str() {
-        panic!("
-        Seems you are building for an unsupported or wrong target (e.g. the host environment).
-        Maybe you are missing the `target` in `.cargo/config.toml` or you have configs overriding it?
+        panic!(
+            "
+        Seems you are building for an unsupported or wrong target (e.g. the host environment).\
+             
+        Maybe you are missing the `target` in `.cargo/config.toml` or you have configs \
+             overriding it?
 
-        See https://doc.rust-lang.org/cargo/reference/config.html#hierarchical-structure
-        ");
+        See https://doc.rust-lang.org/cargo/reference/config.html#hierarchical-structure\
+             
+        "
+        );
     }
 
     // Define all necessary configuration symbols for the configured device:

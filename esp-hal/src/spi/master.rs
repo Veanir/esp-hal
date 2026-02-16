@@ -888,8 +888,7 @@ impl<'d> Spi<'d, Async> {
 macro_rules! def_with_sio_pin {
     ($fn:ident, $field:ident, $n:literal) => {
         #[doc = concat!(" Assign the SIO", stringify!($n), " pin for the SPI instance.")]
-        #[doc = " "]
-        #[doc = " Enables both input and output functionality for the pin, and connects it"]
+        /// Enables both input and output functionality for the pin, and connects it
         #[doc = concat!(" to the SIO", stringify!($n), " output and input signals.")]
         #[instability::unstable]
         pub fn $fn(mut self, sio: impl PeripheralOutput<'d>) -> Self {
@@ -1561,7 +1560,6 @@ mod dma {
             multi_core,
             doc = "Registers an interrupt handler for the peripheral on the current core."
         )]
-        #[doc = ""]
         /// Note that this will replace any previously registered interrupt
         /// handlers.
         ///

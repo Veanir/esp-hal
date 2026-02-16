@@ -127,8 +127,10 @@ _xtensa_lx_rt_copy:
     .p2align 2
     .type Reset,@function
 Reset:
-    entry  a1, 0x10                 // We're using call4/callx4, reserve 16 bytes for register spill area
-    movi   a0, 0                    // Trash the return address. Debuggers may use this to stop unwinding.
+    entry  a1, 0x10                 // We're using call4/callx4, reserve 16 bytes for register \
+     spill area
+    movi   a0, 0                    // Trash the return address. Debuggers may use this to stop \
+     unwinding.
 
     wsr.intenable a0                // Disable interrupts
 
@@ -158,7 +160,8 @@ Reset:
     call4  _xtensa_lx_rt_copy       // Copy .data section
 
 .Linit_data_done:
-    memw    // Make sure all writes are completed before proceeding. At this point, all static variables have been initialized.
+    memw    // Make sure all writes are completed before proceeding. At this point, all static \
+     variables have been initialized.
 "
 );
 

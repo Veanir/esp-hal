@@ -120,9 +120,19 @@ fn main() -> Result<(), Box<dyn Error>> {
     let terminal = tui::init_terminal()?;
 
     // create app and run it
-    let updated_cfg = tui::App::new(if hint_about_config_toml {
-        Some("[env] section in base config.toml detected - avoid this and only add [env] sections to individual configs".to_string()) } else { None }, repository)
-        .run(terminal)?;
+    let updated_cfg = tui::App::new(
+        if hint_about_config_toml {
+            Some(
+                "[env] section in base config.toml detected - avoid this and only add [env] \
+                 sections to individual configs"
+                    .to_string(),
+            )
+        } else {
+            None
+        },
+        repository,
+    )
+    .run(terminal)?;
 
     tui::restore_terminal()?;
 

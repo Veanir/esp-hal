@@ -79,18 +79,14 @@
 //! placed there cannot be initialized (i.e. it must be `MaybeUninit<T>`). For convenience, you can
 //! use the `#[esp_hal::ram(reclaimed)]` attribute, which will also check that the variable can be
 //! placed in the reclaimed memory.
-#![doc = ""]
 #![cfg_attr(not(feature = "std"), doc = concat!("For ", esp_metadata_generated::chip!(), " the size of the reclaimed memory is ", esp_metadata_generated::memory_range!(size as str, "DRAM2_UNINIT")," bytes."))]
-#![doc = ""]
 //! ## Additional configuration
 //!
 //! We've exposed some configuration options that don't fit into cargo
 //! features. These can be set via environment variables, or via cargo's `[env]`
 //! section inside `.cargo/config.toml`. Below is a table of tunable parameters
 //! for this crate:
-#![doc = ""]
 #![doc = include_str!(concat!(env!("OUT_DIR"), "/esp_bootloader_esp_idf_config_table.md"))]
-#![doc = ""]
 //! ## Feature Flags
 #![doc = document_features::document_features!(feature_label = r#"<span class="stab portability"><code>{feature}</code></span>"#)]
 #![doc(html_logo_url = "https://avatars.githubusercontent.com/u/46717278")]
@@ -279,19 +275,9 @@ impl defmt::Format for EspAppDesc {
     fn format(&self, fmt: defmt::Formatter) {
         defmt::write!(
             fmt,
-            "EspAppDesc (\
-            magic_word = {}, \
-            secure_version = {}, \
-            version = {}, \
-            project_name = {}, \
-            time = {}, \
-            date = {}, \
-            idf_ver = {}, \
-            app_elf_sha256 = {}, \
-            min_efuse_blk_rev_full = {}, \
-            max_efuse_blk_rev_full = {}, \
-            mmu_page_size = {}\
-            )",
+            "EspAppDesc (magic_word = {}, secure_version = {}, version = {}, project_name = {}, \
+             time = {}, date = {}, idf_ver = {}, app_elf_sha256 = {}, min_efuse_blk_rev_full = \
+             {}, max_efuse_blk_rev_full = {}, mmu_page_size = {})",
             self.magic_word,
             self.secure_version,
             self.version(),

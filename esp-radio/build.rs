@@ -36,13 +36,15 @@ fn main() -> Result<(), Box<dyn Error>> {
     if !suppress_panics {
         if cfg!(feature = "requires-unstable") && !cfg!(feature = "unstable") {
             panic!(
-                "\n\nThe `unstable` feature is required by a dependent crate but is not enabled.\n\n"
+                "\n\nThe `unstable` feature is required by a dependent crate but is not \
+                 enabled.\n\n"
             );
         }
 
         if cfg!(feature = "__has_unstable_feature_enabled") && !cfg!(feature = "unstable") {
             panic!(
-                "\n\nA feature flag which is considered unstable has been enabled, but the `unstable` feature is not selected.\n\n"
+                "\n\nA feature flag which is considered unstable has been enabled, but the \
+                 `unstable` feature is not selected.\n\n"
             );
         }
     }
@@ -63,7 +65,8 @@ fn main() -> Result<(), Box<dyn Error>> {
         && !suppress_panics
     {
         panic!(
-            "\n\nThe `unstable` feature was not provided, but is required for the following features: `ble`, `coex`, `csi`, `esp-now`, `ieee802154`, `sniffer`, `wifi-eap`.\n\n"
+            "\n\nThe `unstable` feature was not provided, but is required for the following \
+             features: `ble`, `coex`, `csi`, `esp-now`, `ieee802154`, `sniffer`, `wifi-eap`.\n\n"
         )
     }
 
@@ -109,7 +112,8 @@ fn main() -> Result<(), Box<dyn Error>> {
     {
         let message = format!(
             "esp-radio should be built with optimization level 2, 3 or s - yours is {level}.
-                See https://github.com/esp-rs/esp-hal/tree/main/esp-radio",
+                \
+             See https://github.com/esp-rs/esp-hal/tree/main/esp-radio",
         );
         print_warning(message);
     }

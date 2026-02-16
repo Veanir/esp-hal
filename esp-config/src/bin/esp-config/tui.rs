@@ -711,7 +711,8 @@ impl App<'_> {
         } else if self.show_error_message {
             "ENTER to confirm"
         } else {
-            "Use ↓↑ to move, ESC/← to go up, → to go deeper or change the value, s/S to save and generate, ESC/q to cancel"
+            "Use ↓↑ to move, ESC/← to go up, → to go deeper or change the value, s/S to save and \
+             generate, ESC/q to cancel"
         };
 
         Paragraph::new(text).centered().wrap(Wrap { trim: false })

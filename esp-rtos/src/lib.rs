@@ -30,7 +30,6 @@ esp_rtos::start_second_core(
 );
 "
 )]
-#![doc = ""]
 //! // You can now start esp-radio:
 //! // let esp_radio_controller = esp_radio::init().unwrap();
 //! # }
@@ -41,9 +40,7 @@ esp_rtos::start_second_core(
 //! the `task` macro from the `embassy-executor` crate. Do NOT enable any of the `arch-*` features on `embassy-executor`.
 //!
 //! ## Additional configuration
-#![doc = ""]
 #![doc = include_str!(concat!(env!("OUT_DIR"), "/esp_rtos_config_table.md"))]
-#![doc = ""]
 //! ## Feature Flags
 #![doc = document_features::document_features!(feature_label = r#"<span class="stab portability"><code>{feature}</code></span>"#)]
 #![doc(html_logo_url = "https://avatars.githubusercontent.com/u/46717278")]
@@ -451,8 +448,8 @@ pub fn start_second_core_with_stack_guard_offset<const STACK_SIZE: usize>(
 
     if !SCHEDULER.with(|s| s.per_cpu[1].initialized) {
         panic!(
-            "Second core scheduler failed to initialize. \
-            This can happen if its main function overflowed the stack."
+            "Second core scheduler failed to initialize. This can happen if its main function \
+             overflowed the stack."
         );
     }
 

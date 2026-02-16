@@ -416,7 +416,8 @@ fn common_task_create(
 ) -> i32 {
     let task_name = unsafe { str_from_c(name as _) };
     trace!(
-        "task_create task_func {:?} name {} stack_depth {} param {:?} prio {}, task_handle {:?} core_id {:?}",
+        "task_create task_func {:?} name {} stack_depth {} param {:?} prio {}, task_handle {:?} \
+         core_id {:?}",
         task_func, task_name, stack_depth, param, prio, task_handle, core_id
     );
 

@@ -136,17 +136,8 @@ impl defmt::Format for PartitionEntry<'_> {
     fn format(&self, fmt: defmt::Formatter) {
         defmt::write!(
             fmt,
-            "PartitionEntry (\
-            magic = {}, \
-            raw_type = {}, \
-            raw_subtype = {}, \
-            offset = {}, \
-            len = {}, \
-            label = {}, \
-            flags = {}, \
-            is_read_only = {}, \
-            is_encrypted = {}\
-            )",
+            "PartitionEntry (magic = {}, raw_type = {}, raw_subtype = {}, offset = {}, len = {}, \
+             label = {}, flags = {}, is_read_only = {}, is_encrypted = {})",
             self.magic(),
             self.raw_type(),
             self.raw_subtype(),

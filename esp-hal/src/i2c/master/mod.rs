@@ -203,7 +203,6 @@ impl From<u8> for I2cAddress {
 /// clock cycles, the bus goes to idle state.
 ///
 /// Default value is `BusCycles(10)`.
-#[doc = ""]
 #[cfg_attr(
     i2c_master_bus_timeout_is_exponential,
     doc = "Note that the effective timeout may be longer than the value configured here."
@@ -756,7 +755,6 @@ impl<'d> I2c<'d, Blocking> {
         multi_core,
         doc = "Registers an interrupt handler for the peripheral on the current core."
     )]
-    #[doc = ""]
     /// Note that this will replace any previously registered interrupt
     /// handlers.
     ///
@@ -1087,7 +1085,8 @@ impl<'d> I2c<'d, Async> {
     /// - `SP` = stop condition
     #[cfg_attr(
         any(esp32, esp32s2),
-        doc = "\n\nOn ESP32 and ESP32-S2 there might be issues combining large read/write operations with small (<3 bytes) read/write operations.\n\n"
+        doc = "\n\nOn ESP32 and ESP32-S2 there might be issues combining large read/write \
+               operations with small (<3 bytes) read/write operations.\n\n"
     )]
     /// ## Errors
     ///
@@ -1300,7 +1299,8 @@ where
     /// ```
     #[cfg_attr(
         any(esp32, esp32s2),
-        doc = "\n\nOn ESP32 and ESP32-S2 it is advisable to not combine large read/write operations with small (<3 bytes) read/write operations.\n\n"
+        doc = "\n\nOn ESP32 and ESP32-S2 it is advisable to not combine large read/write \
+               operations with small (<3 bytes) read/write operations.\n\n"
     )]
     /// ## Errors
     ///

@@ -120,18 +120,9 @@ impl defmt::Format for StationConfig {
     fn format(&self, fmt: defmt::Formatter<'_>) {
         defmt::write!(
             fmt,
-            "StationConfig {{\
-            ssid: {}, \
-            bssid: {:?}, \
-            auth_method: {:?}, \
-            password: **REDACTED**, \
-            channel: {:?}, \
-            protocols: {}, \
-            listen_interval: {}, \
-            beacon_timeout: {}, \
-            failure_retry_cnt: {}, \
-            scan_method: {} \
-            }}",
+            "StationConfig {{ssid: {}, bssid: {:?}, auth_method: {:?}, password: **REDACTED**, \
+             channel: {:?}, protocols: {}, listen_interval: {}, beacon_timeout: {}, \
+             failure_retry_cnt: {}, scan_method: {} }}",
             self.ssid.as_str(),
             self.bssid,
             self.auth_method,
